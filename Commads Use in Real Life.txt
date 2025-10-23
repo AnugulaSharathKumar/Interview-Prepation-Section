@@ -1,0 +1,172 @@
+
+🧠 1. Linux Commands — Core Troubleshooting
+
+👉 System Monitoring
+
+top                # View running processes
+htop               # Interactive process viewer
+free -h            # Check memory usage
+df -h              # Disk usage
+du -sh *           # Disk usage per folder
+iostat             # CPU and I/O stats
+vmstat 1           # Real-time memory & process stats
+uptime             # System load averages
+sar -u 1 3         # CPU usage over time
+
+
+👉 Network Debugging
+
+ping google.com                # Check connectivity
+curl -v http://example.com     # Test HTTP connection
+wget http://example.com        # Download file
+netstat -tuln                  # Check open ports
+ss -tuln                       # Same as netstat (modern)
+lsof -i :8080                  # Find process using port 8080
+nslookup example.com           # DNS resolution
+dig example.com                # Detailed DNS info
+traceroute google.com          # Network route trace
+telnet <ip> <port>             # Port connectivity test
+
+
+👉 Logs & File Handling
+
+tail -f /var/log/syslog        # Follow live logs
+grep "error" /var/log/syslog   # Search for errors
+cat /etc/os-release            # OS info
+find / -name "filename"        # Find file by name
+less /var/log/messages         # View logs page by page
+journalctl -xe                 # Systemd logs
+
+
+👉 System Management
+
+sudo systemctl status nginx    # Check service status
+sudo systemctl restart nginx   # Restart service
+ps aux | grep nginx            # Find running process
+kill -9 <pid>                  # Force kill process
+df -Th                         # Filesystem info
+hostnamectl                    # System hostname
+whoami                         # Current user
+
+🧱 2. Git Commands — Daily Workflow
+git clone <repo_url>                   # Clone repo
+git status                             # Check status
+git add .                              # Stage all changes
+git commit -m "message"                # Commit changes
+git push origin main                   # Push to remote
+git pull origin main                   # Pull latest code
+git branch                             # List branches
+git checkout -b feature/new-feature    # Create new branch
+git merge feature/new-feature          # Merge branch
+git log --oneline --graph              # View commit history
+git stash                              # Save uncommitted changes
+git stash pop                          # Restore stashed changes
+git rebase main                        # Rebase branch
+git diff                               # Show file diffs
+git reset --hard HEAD~1                # Undo last commit
+
+🐳 3. Docker Commands — Troubleshooting & Management
+
+👉 Containers
+
+docker ps                              # Running containers
+docker ps -a                           # All containers
+docker logs <container_id>             # View logs
+docker exec -it <container_id> bash    # Access container shell
+docker stop <container_id>             # Stop container
+docker start <container_id>            # Start container
+docker rm <container_id>               # Remove container
+docker inspect <container_id>          # Inspect details
+docker top <container_id>              # Running processes inside
+docker stats                           # Resource usage
+
+
+👉 Images & Volumes
+
+docker images                          # List images
+docker rmi <image_id>                  # Remove image
+docker pull <image_name>               # Download image
+docker build -t myapp:latest .         # Build image from Dockerfile
+docker volume ls                       # List volumes
+docker network ls                      # List networks
+
+
+👉 Useful One-Liners
+
+docker system prune -a                 # Clean up unused data
+docker-compose up -d                   # Start services via compose
+docker-compose logs -f                 # Follow logs
+
+☁️ 4. Terraform Commands — Infra Management
+terraform init                         # Initialize working directory
+terraform validate                     # Validate configuration
+terraform plan                         # Preview changes
+terraform apply -auto-approve          # Apply configuration
+terraform destroy -auto-approve        # Destroy infrastructure
+terraform state list                   # List managed resources
+terraform show                         # Show resource details
+terraform output                       # Show output variables
+terraform fmt                          # Format Terraform files
+terraform workspace list               # Manage workspaces
+terraform taint <resource_name>        # Force recreate resource
+
+
+👉 Troubleshooting
+
+terraform refresh                      # Refresh state with real infra
+terraform graph | dot -Tpng > graph.png # Visualize infra
+TF_LOG=DEBUG terraform apply           # Debug mode
+
+☸️ 5. Kubernetes Commands — Day-to-Day Operations
+
+👉 Cluster & Pods
+
+kubectl get nodes                      # List cluster nodes
+kubectl get pods -A                    # List all pods
+kubectl describe pod <pod_name>        # Pod details
+kubectl logs <pod_name>                # Pod logs
+kubectl logs -f <pod_name>             # Follow live logs
+kubectl exec -it <pod_name> -- bash    # Access pod shell
+kubectl delete pod <pod_name>          # Restart a pod
+kubectl get events --sort-by=.metadata.creationTimestamp  # View events
+
+
+👉 Deployments & Services
+
+kubectl get deployments                # List deployments
+kubectl describe deployment <name>     # Deployment info
+kubectl scale deployment <name> --replicas=3   # Scale pods
+kubectl rollout status deployment <name>       # Check rollout
+kubectl rollout undo deployment <name>         # Rollback
+kubectl get svc                        # List services
+kubectl port-forward svc/myapp 8080:80 # Access service locally
+
+
+👉 Configs & Debugging
+
+kubectl get configmap -A               # View configmaps
+kubectl get secret -A                  # View secrets
+kubectl top pod                        # Resource usage
+kubectl get ns                         # Namespaces
+kubectl describe node <node_name>      # Node details
+kubectl get ingress -A                 # Ingress resources
+kubectl get pvc -A                     # Persistent Volumes
+
+⚙️ 6. Bonus: Useful One-Liners
+# Restart all pods in a namespace
+kubectl delete pod --all -n <namespace>
+
+# View logs of a specific container inside a pod
+kubectl logs <pod_name> -c <container_name>
+
+# Get public IPs of all services
+kubectl get svc -o wide
+
+# SSH into node
+ssh user@<node_ip>
+
+# Copy file to pod
+kubectl cp /tmp/file.txt <pod_name>:/tmp/
+
+# Tail all container logs in namespace
+kubectl logs -f -n <namespace> --all-containers=true
